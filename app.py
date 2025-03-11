@@ -23,9 +23,9 @@ app.config['MAIL_PASSWORD'] = 'vuea yjod erlv lkqs'  # Ensure this is securely s
 mail = Mail(app)
 
 # File Paths
-csv_path = r'E:\CC Files\nandhini mr\data\DrugData_final.csv'
-model_path = r'E:\CC Files\nandhini mr\models\gbm_drug_recommendation_model.pkl'
-encoder_path = r'E:\CC Files\nandhini mr\models\label_encoder(2).pkl'
+csv_path = '\data\DrugData_final.csv'
+model_path = '\models\gbm_drug_recommendation_model.pkl'
+encoder_path = '\models\label_encoder(2).pkl'
 
 # Load Model and Data
 try:
@@ -45,7 +45,9 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)  # Increased size for hashed password
     verified = db.Column(db.Boolean, default=False)
-
+@app.route('/')
+def home():
+    return render_template('index.html')
 # Routes
 @app.route('/')
 def home():
