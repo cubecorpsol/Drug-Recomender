@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            width: 350px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .login-link {
+            margin-top: 15px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p style="color: red;">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST" onsubmit="return validatePassword()">
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Age:</label>
+                <input type="number" name="age" required>
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <select name="gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Phone Number:</label>
+                <input type="text" id="phone" name="phone" required maxlength="10" pattern="\d{10}" title="Enter a valid 10-digit phone number">
+                <p id="phone-error" style="color: red; display: none;">Phone number must be exactly 10 digits.</p>
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" id="password" name="password" required>
+                <p id="password-error" style="color: red; display: none;">Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character.</p>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        
+        <script>
+            function validatePassword() {
+                let password = document.getElementById("password").value;
+                let passwordError = document.getElementById("password-error");
+        
+                let strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/;
+        
+                if (!strongPasswordRegex.test(password)) {
+                    passwordError.style.display = "block";
+                    return false;
+                }
+        
+                passwordError.style.display = "none";
+                return true;
+            }
+        </script>
+        
+        <p class="login-link">Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+    </div>
+
+    <script>
+        // Disable Right Click
+        document.addEventListener("contextmenu", function (event) {
+            event.preventDefault();
+        });
+    
+        // Disable Keyboard Shortcuts for Inspect Element
+        document.addEventListener("keydown", function (event) {
+            if (event.ctrlKey && (event.key === "u" || event.key === "U" || event.key === "s" || event.key === "S")) {
+                event.preventDefault();
+            }
+            if (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "i")) {
+                event.preventDefault();
+            }
+            if (event.ctrlKey && event.shiftKey && (event.key === "J" || event.key === "j")) {
+                event.preventDefault();
+            }
+            if (event.key === "F12") {
+                event.preventDefault();
+            }
+        });
+    </script>
+    
+</body>
+</html>
