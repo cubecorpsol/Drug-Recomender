@@ -1,0 +1,3 @@
+DATABASE_URL=postgresql://neondb_owner:npg_9P1ocOmQjfTZ@ep-red-unit-a1hj0zl3.ap-southeast-1.aws.neon.tech/medical_recommend?sslmode=require
+MAIL_USERNAME=anandhiniarumugam21@gmail.com
+MAIL_PASSWORD=vuea yjod erlv lkqs
